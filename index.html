@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="background">
+    <div class="container" id="container">
+      <div class="card">
+        <div class="card-front">
+          <h1>Login</h1>
+          <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <button type="submit">Login</button>
+          </form><br>
+          <div class="login-options">
+            <p>Don't have an account?</p><br>
+            <button id="signup-button">Sign Up</button>
+          </div>
+        </div>
+        <div class="card-back">
+          <h1>Sign Up</h1>
+          <form id="signup-form">
+            <label for="new-username">Username:</label>
+            <input type="text" id="new-username" name="new-username" required />
+            <label for="new-email">Email:</label>
+            <input type="email" id="new-email" name="new-email" required />
+            <label for="new-password">Password:</label>
+            <input type="password" id="new-password" name="new-password" required />
+            <button type="submit">Sign Up</button>
+          </form>
+          <div class="signup-options"><br>
+            <p>Already have an account?</p>
+            <button id="login-button">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const container = document.getElementById("container");
+    const card = document.querySelector(".card");
+    const signupButton = document.getElementById("signup-button");
+    const loginButton = document.getElementById("login-button");
+
+    signupButton.addEventListener("click", () => {
+      card.classList.add("flip");
+    });
+
+    loginButton.addEventListener("click", () => {
+      card.classList.remove("flip");
+    });
+
+    container.addEventListener("mousemove", (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const deltaX = (x - centerX) / centerX;
+      const deltaY = (y - centerY) / centerY;
+
+      container.style.transform = `perspective(600px) rotateY(${
+        deltaX * 20
+      }deg) rotateX(${-deltaY * 20}deg)`;
+    });
+
+    container.addEventListener("mouseleave", () => {
+      container.style.transform = `perspective(600px) rotateY(0deg) rotateX(0deg)`;
+    });
+  </script>
+</body>
+</html>
